@@ -38,36 +38,61 @@
         // create food
 
         let food = {
-            x: Math.floor(Math.random() * 17 + 1) * box,
-            y: Math.floor(Math.random() * 15 + 3) * box
+            x: Math.floor(Math.random() * 1 + 1) * box,
+            y: Math.floor(Math.random() * 1 + 3) * box
         }
 
         // create score var
 
         let score = 0;
 
-        //
+        // control snake
 
-        function draw() {
+        document.addEventListener("keydown", direction);
 
-            ctx.drawImage(ground, 0, 0);
+        function direction(event) {
+            if (event.keyCode == 37) {
+                d = "LEFT";
 
-            for (let i = 0; i < snake.length; i++) {
-                ctx.fillStyle = (i == 0) ? "green" : "white";
-                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+            }if (event.keyCode == 38) {
+                    d = "UP";
 
-                ctx.strokeStyle = "red";
-                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
-            }
+            }if (event.keyCode == 39) {
+                        d = "RIGHT";
 
-            ctx.drawImage(foodImg, food.x, food.y);
-            
-            ctx.fillStyle = "white";
-            ctx.font = "45px Changa one";
-            ctx.fillText(score,2*box,1.6*box);
-        }
+            }if (event.keyCode == 40) {
+                            d = "DOWN";
+                        }
+                    }
 
-        let game = setInterval(draw, 100);
+                    // draw canvas
+
+                    function draw() {
+
+                        ctx.drawImage(ground, 0, 0);
+
+                        for (let i = 0; i < snake.length; i++) {
+                            ctx.fillStyle = (i == 0) ? "green" : "white";
+                            ctx.fillRect(snake[i].x, snake[i].y, box, box);
+
+                            ctx.strokeStyle = "red";
+                            ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+                        }
+
+                        ctx.drawImage(foodImg, food.x, food.y);
+                        
+                        // HEAD POSTION
+                        let snakeX = snake[0].x;
+                        let snakeY = snake[0].y;
+                        
+                        // remove tail
+                        snake.pop();
+                        ctx.fillStyle = "white";
+                        ctx.font = "45px Changa one";
+                        ctx.fillText(score, 2 * box, 1.6 * box);
+                    }
+
+                    let game = setInterval(draw, 100);
 
     </script>
 </body>
