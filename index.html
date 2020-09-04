@@ -56,7 +56,7 @@
                 d = "LEFT";
 
             } else if (event.keyCode == 38) {
-                d = "UP";
+                d = "UP"; 
 
             } else if (event.keyCode == 39) {
                 d = "RIGHT";
@@ -95,6 +95,14 @@
             if (d == "RIGHT") snakeX += box;
             if (d == "DOWN") snakeY += box;
             
+            // IF SNAKE EATS FOOD
+            if(snakeX == food.x && snakeY == snakeY){
+                score++;
+                food = {
+            x: Math.floor(Math.random() * 17 + 1) * box,
+            y: Math.floor(Math.random() * 15 + 3) * box
+                }
+            }
             // head
             
             let newHead = {
