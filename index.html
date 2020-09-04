@@ -4,9 +4,7 @@
 
 <head>
     <title>Snake</title>
-</head>
-
-</html>
+</head></html>
 
 <body>
     <canvas id="canvas" width="608" height="608"></canvas>
@@ -96,12 +94,13 @@
             if (d == "DOWN") snakeY += box;
             
             // IF SNAKE EATS FOOD
-            if(snakeX == food.x && snakeY == snakeY){
+            if(snakeX == food.x && snakeY == food.y){
                 score++;
                 food = {
             x: Math.floor(Math.random() * 17 + 1) * box,
             y: Math.floor(Math.random() * 15 + 3) * box
                 }
+            
             }
             // head
             
