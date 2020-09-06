@@ -24,6 +24,14 @@
 
         const foodImg = new Image();
         foodImg.src = "images/fruit.png";
+        
+        // audio 
+        
+        const dead = new Audio();
+        const eat = new Audio();
+        
+        dead.src = "audio/dead.mp3"
+        eat.src = "audio/eat.mp3"
 
         // create snake
 
@@ -106,6 +114,7 @@
             // IF SNAKE EATS FOOD
             if(snakeX == food.x && snakeY == food.y){
                 score++;
+                eat.play();
                 food = {
             x: Math.floor(Math.random() * 17 + 1) * box,
             y: Math.floor(Math.random() * 15 + 3) * box
@@ -124,6 +133,7 @@
             // game over
             if(snakeX < box || snakeX > 17* box || snakeY < 3*box || snakeY > 17*box || collision(newHead,snake)){
                 clearInterval(game);
+                dead.play();
             }
             // head
             
