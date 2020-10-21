@@ -4,30 +4,52 @@
 
 <head>
     <title>Snake</title>
-</head></html>
+     <link rel="icon" href="images/Snake.ico">
+</head>
+
+</html>
 
 <body>
     <canvas id="canvas" width="608" height="608"></canvas>
 
     <script>
         
+        // difficulty
+        
         var difficulty = prompt('Set speed 1-5, lower = faster');
+
+        // make sure response is 1-5
         
+        while(isNaN(difficulty) || difficulty > 5 || difficulty < 1){
+            difficulty = prompt('Set speed 1-5, lower = faster');
+        }
         
-        if(difficulty == 1){ alert("Difficulty : Baby")}
-        if(difficulty == 2){ alert("Difficulty : Easy")}
-        if(difficulty == 3){ alert("Difficulty : Medium")}
-        if(difficulty == 4){ alert("Difficulty : Hard")}
-        if(difficulty == 5){ alert("Difficulty : Extreme")}
-        if(difficulty > 5){ alert("If you say so...")}
-        if(difficulty < 1){ alert("If you say so...")
-                          }
+        // difficulty confirmation responses
         
+        if (difficulty == 1) {
+            alert("Difficulty : Baby")
+        } 
+        if (difficulty == 2) {
+            alert("Difficulty : Easy")
+        }
+        if (difficulty == 3) {
+            alert("Difficulty : Medium")
+        }
+        if (difficulty == 4) {
+            alert("Difficulty : Hard")
+        }
+        if (difficulty == 5) {
+            alert("Difficulty : Extreme")
+        }
+        
+        // create game
+    
         const cvs = document.getElementById('canvas');
 
         const ctx = canvas.getContext('2d');
 
         // create area
+        
         const box = 32;
 
         // images
@@ -70,10 +92,8 @@
         let d;
         document.addEventListener("keydown", direction);
 
-
-
-       
-
+        // directoinal movement
+        
         function direction(event) {
             let key = event.keyCode;
             if (key == 37 && d != "RIGHT") {
@@ -91,6 +111,7 @@
         }
 
         // check collision
+        
         function collision(head, array) {
             for (let i = 0; i < array.length; i++) {
                 if (head.x == array[i].x && head.y == array[i].y) {
@@ -117,19 +138,22 @@
             ctx.drawImage(foodImg, food.x, food.y);
 
             // HEAD POSTION
+            
             let snakeX = snake[0].x;
             let snakeY = snake[0].y;
 
 
 
             // direction
+            
             if (d == "LEFT") snakeX -= box;
             if (d == "UP") snakeY -= box;
             if (d == "RIGHT") snakeX += box;
             if (d == "DOWN") snakeY += box;
-            
+
 
             // IF SNAKE EATS FOOD
+            
             if (snakeX == food.x && snakeY == food.y) {
                 score++;
                 eat.play();
@@ -149,15 +173,15 @@
             }
 
             // game over
+            
             if (snakeX < box || snakeX > 17 * box || snakeY < 3 * box || snakeY > 17 * box || collision(newHead, snake)) {
                 clearInterval(game);
                 dead.play();
                 location.reload();
+                
             }
 
             // head 
-
-
 
             snake.unshift(newHead);
 
@@ -165,12 +189,12 @@
             ctx.font = "45px Changa one";
             ctx.fillText(score, 2 * box, 1.6 * box);
         }
-        
-        
-        
+
+
+        // refresh rate / speed
+
         let game =
-        setInterval(draw, 200 / difficulty);
-        
-       
+            setInterval(draw, 200 / difficulty);
+
     </script>
 </body>
