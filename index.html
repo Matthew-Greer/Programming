@@ -4,10 +4,8 @@
 
 <head>
     <title>Snake</title>
-     <link rel="icon" href="images/Snake.ico">
-</head>
-
-</html>
+    <link rel="icon" href="images/Snake.ico">
+</head></html>
 
 <body>
     <canvas id="canvas" width="608" height="608"></canvas>
@@ -116,6 +114,8 @@
             }
         }
 
+         var gameOver = false;
+        
         // check collision
         
         function collision(head, array) {
@@ -126,7 +126,12 @@
             }
             return false;
         }
-
+        
+       
+        
+        
+        
+        
         // draw canvas
 
         function draw() {
@@ -177,30 +182,35 @@
                 x: snakeX,
                 y: snakeY
             }
+            
+            
+            
+            
 
             // game over
             
-            if (snakeX < box || snakeX > 17 * box || snakeY < 3 * box || snakeY > 17 * box || collision(newHead, snake)) {
+            if (snakeX <  box || snakeX > 17 * box || snakeY < 3 * box || snakeY > 17 * box || collision(newHead, snake)) {
                 clearInterval(game);
                 dead.play();   
                 location.reload(); 
             }
             
+        
+            
+            
 
             // head 
 
             snake.unshift(newHead);
+            
+            // display score
 
             ctx.fillStyle = "white";
             ctx.font = "45px Changa one";
             ctx.fillText(score, 2 * box, 1.6 * box);
+            ctx.fillText(name, 5* box, 1.6 * box);
         }
         
-        function DivText(TextUpdate) {
-            var TextUpdateElement = document.getElementById(score);
-        }
-
-
         // refresh rate / speed
 
         let game =
