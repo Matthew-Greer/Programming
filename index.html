@@ -51,41 +51,43 @@
 
         const ctx = canvas.getContext('2d');
 
-        // create area
+        // create area and measurement
         
-        const box = 32;
+        const BOX = 32;
 
         // images
 
-        const ground = new Image();
-        ground.src = "images/Background.png";
+        const GROUND = new Image();
+        GROUND.src = "images/Background.png";
 
         const foodImg = new Image();
         foodImg.src = "images/fruit.png";
 
-        // audio 
+        // audio const
         
         const bgmusic = new Audio();
         const dead = new Audio();
         const eat = new Audio();
+        
+        // audio source
 
         bgmusic.src = "audio/bgmusic.mp3"
         dead.src = "audio/dead.mp3"
         eat.src = "audio/eat.mp3"
 
-        // create snake
+        // create snake array
 
         let snake = [];
         snake[0] = {
-            x: 9 * box,
-            y: 10 * box
+            x: 9 * BOX,
+            y: 10 * BOX
         }
 
-        // create food
+        // create food array
 
         let food = {
-            x: Math.floor(Math.random() * 17 + 1) * box,
-            y: Math.floor(Math.random() * 15 + 3) * box
+            x: Math.floor(Math.random() * 17 + 1) * BOX,
+            y: Math.floor(Math.random() * 15 + 3) * BOX
         }
 
         // create score var
@@ -118,11 +120,13 @@
         // check collision
         
         function collision(head, array) {
+            // snake has collided
             for (let i = 0; i < array.length; i++) {
                 if (head.x == array[i].x && head.y == array[i].y) {
                     return true;
                 }
             }
+            // snake has not collided
             return false;
         }
         
@@ -135,75 +139,71 @@
 
         function draw() {
             
+            // background music 
+            
             bgmusic.play()
+            
+            // background image
 
-            ctx.drawImage(ground, 0, 0);
+            ctx.drawImage(GROUND, 0, 0);
+            
+            // spawn snake
 
             for (let i = 0; i < snake.length; i++) {
                 ctx.fillStyle = (i == 0) ? "green" : "white";
-                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+                ctx.fillRect(snake[i].x, snake[i].y, BOX, BOX);
 
                 ctx.strokeStyle = "red";
-                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+                ctx.strokeRect(snake[i].x, snake[i].y, BOX, BOX);
             }
+            
+            // create fruit
 
             ctx.drawImage(foodImg, food.x, food.y);
 
-            // HEAD POSTION
+            // head position
             
             let snakeX = snake[0].x;
             let snakeY = snake[0].y;
 
-            
-            
-
-
             // direction
             
-            if (d == "LEFT") snakeX -= box;
-            if (d == "UP") snakeY -= box;
-            if (d == "RIGHT") snakeX += box;
-            if (d == "DOWN") snakeY += box;
+            if (d == "LEFT") snakeX -= BOX;
+            if (d == "UP") snakeY -= BOX;
+            if (d == "RIGHT") snakeX += BOX;
+            if (d == "DOWN") snakeY += BOX;
 
-
-            // IF SNAKE EATS FOOD
+            // if snake eats food
             
             if (snakeX == food.x && snakeY == food.y) {
                 score++;
                 eat.play();
                 food = {
-                    x: Math.floor(Math.random() * 17 + 1) * box,
-                    y: Math.floor(Math.random() * 15 + 3) * box
+                    x: Math.floor(Math.random() * 17 + 1) * BOX,
+                    y: Math.floor(Math.random() * 15 + 3) * BOX
                 }
 
             } else {
                 // remove tail
                 snake.pop();
             }
+            
+            // snake grows after eating
 
             let newHead = {
                 x: snakeX,
                 y: snakeY
             }
             
-            
-            
-            
-
             // game over
             
-            if (snakeX <  box || snakeX > 17 * box || snakeY < 3 * box || snakeY > 17 * box || collision(newHead, snake)) {
-                clearInterval(game);
-                dead.play();   
+            if (snakeX <  BOX || snakeX > 17 * BOX || snakeY < 3 * BOX || snakeY > 17 * BOX || collision(newHead, snake)) {
+                dead.play(); 
+                clearInterval(game);  
                 location.reload(); 
             }
             
-        
-            // play music
-            function BgMusic() {
-                bgmusic.play();
-            }
-            
+
 
             // head 
 
@@ -213,8 +213,8 @@
 
             ctx.fillStyle = "white";
             ctx.font = "45px Changa one";
-            ctx.fillText(score, 2 * box, 1.6 * box);
-            ctx.fillText(name, 5* box, 1.6 * box);
+            ctx.fillText(score, 2 * BOX, 1.6 * BOX);
+            ctx.fillText(name, 5* BOX, 1.6 * BOX);
         }
         
         // refresh rate / speed
