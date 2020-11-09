@@ -9,7 +9,6 @@
 
 <body>
     <canvas id="canvas" width="608" height="608"></canvas>
-
     <script>
         
         // difficulty
@@ -65,10 +64,12 @@
         foodImg.src = "images/fruit.png";
 
         // audio 
-
+        
+        const bgmusic = new Audio();
         const dead = new Audio();
         const eat = new Audio();
 
+        bgmusic.src = "audio/bgmusic.mp3"
         dead.src = "audio/dead.mp3"
         eat.src = "audio/eat.mp3"
 
@@ -113,8 +114,6 @@
                 d = "DOWN";
             }
         }
-
-         var gameOver = false;
         
         // check collision
         
@@ -135,6 +134,8 @@
         // draw canvas
 
         function draw() {
+            
+            bgmusic.play()
 
             ctx.drawImage(ground, 0, 0);
 
@@ -153,6 +154,8 @@
             let snakeX = snake[0].x;
             let snakeY = snake[0].y;
 
+            
+            
 
 
             // direction
@@ -196,14 +199,17 @@
             }
             
         
-            
+            // play music
+            function BgMusic() {
+                bgmusic.play();
+            }
             
 
             // head 
 
             snake.unshift(newHead);
             
-            // display score
+            // display score and name
 
             ctx.fillStyle = "white";
             ctx.font = "45px Changa one";
